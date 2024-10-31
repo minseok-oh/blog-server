@@ -5,10 +5,11 @@ class Post:
     def __init__(self, id: str | None, title: str, content: str, member_id: int, board_id: int,
                  created_at: datetime):
         self._validate_title(title=title)
+        self._validate_content(content=content)
 
         self.__id = id
-        self.__title = self._make_valid_title(title)
-        self.__content = content
+        self.__title = self._make_valid_title(title=title)
+        self.__content = self._make_valid_content(content=content)
         self.__member_id = member_id
         self.__board_id = board_id
         self.__created_at = created_at
@@ -53,3 +54,16 @@ class Post:
         글 제목을 유효한 제목으로 변경합니다.
         """
         return title.replace('<', '&lt;').replace('>', '&gt;')
+
+    def _validate_content(self, content: str):
+        """
+        글 내용의 유효성을 검사합니다.
+        """
+        if not content:
+            raise ValueError(f"현재 내용: {content}")
+
+    def _make_valid_content(self, content: str) -> str:
+        """
+        글 내용을 유효한 내용으로 변경합니다.
+        """
+        return content.replace('<', '&lt;').replace('>', '&gt;')
