@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from app.models.post import Post
+from app.schemas.post_create_dto import PostCreateDTO
 from datetime import datetime
 
 
@@ -15,7 +15,7 @@ class TestPost(TestCase):
         created_at = datetime.now()
 
         # When
-        post = Post(id=post_id, title=title, content=content, member_id=member_id, board_id=board_id, created_at=created_at)
+        post = PostCreateDTO(id=post_id, title=title, content=content, member_id=member_id, board_id=board_id, created_at=created_at)
 
         # Then
         self.assertEqual(post.id, post_id)
@@ -35,8 +35,8 @@ class TestPost(TestCase):
         created_at = datetime.now()
 
         # When
-        post = Post(id=post_id, title=title, content=content, member_id=member_id, board_id=board_id,
-                    created_at=created_at)
+        post = PostCreateDTO(id=post_id, title=title, content=content, member_id=member_id, board_id=board_id,
+                             created_at=created_at)
 
         # Then
         self.assertEqual(repr(post),
@@ -56,7 +56,7 @@ class TestPost(TestCase):
         # Expect
         for test_case in test_cases:
             with self.assertRaises(ValueError):
-                Post(*test_case)
+                PostCreateDTO(*test_case)
 
     def test_post_creation_with_html_tags_in_title(self):
         # Given
@@ -68,8 +68,8 @@ class TestPost(TestCase):
         created_at = datetime.now()
 
         # When
-        post = Post(id=post_id, title=title, content=content, member_id=member_id, board_id=board_id,
-                    created_at=created_at)
+        post = PostCreateDTO(id=post_id, title=title, content=content, member_id=member_id, board_id=board_id,
+                             created_at=created_at)
 
         # Then
         self.assertNotIn("<", post.title)
@@ -85,8 +85,8 @@ class TestPost(TestCase):
         created_at = datetime.now()
 
         # When
-        post = Post(id=post_id, title=title, content=content, member_id=member_id, board_id=board_id,
-                    created_at=created_at)
+        post = PostCreateDTO(id=post_id, title=title, content=content, member_id=member_id, board_id=board_id,
+                             created_at=created_at)
 
         # Then
         self.assertNotIn("<", post.title)

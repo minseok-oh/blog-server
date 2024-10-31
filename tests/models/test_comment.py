@@ -1,7 +1,7 @@
 from datetime import datetime
 from unittest import TestCase
 
-from app.models.comment import Comment
+from app.schemas.comment import Comment
 
 
 class TestPost(TestCase):

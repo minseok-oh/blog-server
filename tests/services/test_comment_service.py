@@ -1,7 +1,7 @@
 from unittest import TestCase
 from datetime import datetime
 
-from app.models.comment import Comment
+from app.schemas.comment import Comment
 from app.services.comment_service import update_comment
 
 

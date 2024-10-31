@@ -1,4 +1,4 @@
-from app.models.comment import Comment
+from app.schemas.comment import Comment
 
 
 def update_comment(comment: Comment) -> Comment:

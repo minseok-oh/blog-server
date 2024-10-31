@@ -1,7 +1,7 @@
 import datetime
 from unittest import TestCase
 
-from app.models.user import User
+from app.schemas.user import User
 
 
 class TestUser(TestCase):

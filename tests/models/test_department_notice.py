@@ -1,6 +1,6 @@
 from unittest import TestCase
 from datetime import datetime
-from app.models.department_notice import DepartmentNotice
+from app.schemas.department_notice import DepartmentNotice
 
 class TestDepartmentNotice(TestCase):
     def test_department_notice_repr(self):

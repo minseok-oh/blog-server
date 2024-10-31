@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from app.entity.user_entity import UserEntity
+from app.models.user_entity import UserEntity
 
 
 def get_user_by_id(db: Session, id):
