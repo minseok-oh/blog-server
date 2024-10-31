@@ -1,7 +1,7 @@
 from datetime import datetime
 from unittest import TestCase
 
-from app.schemas.comment import Comment
+from app.schemas.comment_create_dto import CommentCreateDTO
 
 
 class TestPost(TestCase):
@@ -15,7 +15,7 @@ class TestPost(TestCase):
         comment_date = datetime.now()
 
         # When
-        comment = Comment(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
+        comment = CommentCreateDTO(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
 
         # Then
         self.assertEqual(comment.id, id)
@@ -34,7 +34,7 @@ class TestPost(TestCase):
         # Expect
         for test_case in test_cases:
             with self.assertRaises(ValueError):
-                Comment(*test_case)
+                CommentCreateDTO(*test_case)
 
     def test_comment_creation_with_html_tags_in_content(self):
         # Given
@@ -45,7 +45,7 @@ class TestPost(TestCase):
         comment_date = datetime.now()
 
         # When
-        comment = Comment(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
+        comment = CommentCreateDTO(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
 
         # Then
         self.assertNotIn("<", comment.content)
@@ -60,7 +60,7 @@ class TestPost(TestCase):
         comment_date = datetime.now()
 
         # When
-        comment = Comment(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
+        comment = CommentCreateDTO(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
 
         # Then
         self.assertEqual(repr(comment),
@@ -74,7 +74,7 @@ class TestPost(TestCase):
         content = "content"
         parent_id = "0"
         comment_date = datetime.now()
-        comment = Comment(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
+        comment = CommentCreateDTO(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
 
         # When
         new_comment = comment.update_comment_date()
