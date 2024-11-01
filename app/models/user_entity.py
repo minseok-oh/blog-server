@@ -18,4 +18,7 @@ class UserEntity(Base):
     email = Column(String(50))
 
     def __repr__(self):
+        """
+        User entity 필드값들을 리턴합니다.
+        """
         return f"<User(id={self.id}, name='{self.name}', member_id='{self.member_id}', password='{self.password}', role='{self.role}', avartar='{self.avatar}', phone_number='{self.phone_number}, student_number='{self.student_number}', birth='{self.birth}', email='{self.email}')>"

@@ -1,9 +1,6 @@
 from unittest import TestCase
 
-from app.schemas.post_create_dto import PostCreateDTO
 from app.services.post_service import create_post
-from datetime import datetime
-
 
 class TestPostService(TestCase):
 

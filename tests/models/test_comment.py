@@ -1,7 +1,7 @@
 from datetime import datetime
 from unittest import TestCase
 
-from app.schemas.comment_create_dto import CommentCreateDTO
+from app.domains.comment import Comment
 
 
 class TestPost(TestCase):

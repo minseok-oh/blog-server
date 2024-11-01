@@ -14,4 +14,7 @@ class PostEntity(Base):
     created_at = Column(DateTime)
 
     def __repr__(self):
+        """
+        Post entity 필드값들을 리턴합니다.
+        """
         return f"<User(id={self.id}, title='{self.title}', attribute='{self.attribute}', content='{self.content}', user_id='{self.user_id}', board='{self.board}', created_at='{self.created_at}')>"
