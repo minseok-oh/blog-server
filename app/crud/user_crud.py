@@ -23,3 +23,10 @@ def get_user_by_id(db: Session, id: int) -> User:
     """
     user_entity = db.query(UserEntity).filter(UserEntity.id == id).first()
     return convert_to_user(user_entity) if user_entity else None
+
+
+def delete_user_by_id(db: Session, id: int) -> None:
+    user = db.query(UserEntity).filter(UserEntity.id == id).first()
+    if user:
+        db.delete(user)
+        db.commit()

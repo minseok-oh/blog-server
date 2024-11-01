@@ -2,7 +2,7 @@ import bcrypt
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from app.crud.user_crud import get_user_by_student_number
+from app.crud.user_crud import get_user_by_student_number, delete_user_by_id
 from app.domains.user import User
 
 
@@ -26,3 +26,13 @@ def encrypt_password(user: User):
     """
     user.password = bcrypt.hashpw(user.password.encode('utf-8'), bcrypt.gensalt())
     return user
+
+
+def withdraw_user(db: Session, user_id: int) -> None:
+    """
+    회원 탈퇴를 진행하는 메서드
+
+    @:param db: 데이터베이스 세션
+    @:param user_id: 탈퇴할 사용자의 ID
+    """
+    delete_user_by_id(db, user_id)
