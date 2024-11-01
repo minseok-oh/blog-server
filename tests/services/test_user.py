@@ -3,7 +3,7 @@ from unittest import TestCase
 
 import bcrypt
 
-from app.models.user import User
+from app.domains.user import User
 from app.services.user_service import encrypt_password
 
 

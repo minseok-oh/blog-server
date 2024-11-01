@@ -9,12 +9,12 @@ class Test(TestCase):
 
     def test_update_comment(self):
         # Given
-        id = "1"
-        user_id = "1"
+        id = 1
+        user_id = 1
         content = "content"
-        parent_id = "0"
+        parent_id = 0
         comment_date = datetime.now()
-        comment = CommentCreateDTO(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
+        comment = Comment(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
 
         # When
         updated_comment = update_comment(comment)

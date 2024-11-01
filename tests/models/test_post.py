@@ -7,7 +7,7 @@ from datetime import datetime
 class TestPost(TestCase):
     def test_valid_post_creation(self):
         # Given
-        post_id = "1"
+        post_id = 1
         title = "title"
         content = "content"
         member_id = 1
@@ -27,7 +27,7 @@ class TestPost(TestCase):
 
     def test_post_repr(self):
         # Given
-        post_id = "1"
+        post_id = 1
         title = "title"
         content = "content"
         member_id = 1
@@ -47,20 +47,20 @@ class TestPost(TestCase):
         # Given
         test_cases = [
             # title
-            ("1", None, "test", 1, 1, datetime.now()),
-            ("1", "", "test", 1, 1, datetime.now()),
-            ("1", "test", None, 1, 1, datetime.now()),
-            ("1", "test", "", 1, 1, datetime.now())
+            (1, None, "test", 1, 1, datetime.now()),
+            (1, "", "test", 1, 1, datetime.now()),
+            (1, "test", None, 1, 1, datetime.now()),
+            (1, "test", "", 1, 1, datetime.now())
         ]
 
         # Expect
         for test_case in test_cases:
             with self.assertRaises(ValueError):
-                PostCreateDTO(*test_case)
+                Post(*test_case)
 
     def test_post_creation_with_html_tags_in_title(self):
         # Given
-        post_id = "1"
+        post_id = 1
         title = "<br/>"
         content = "content"
         member_id = 1
@@ -77,7 +77,7 @@ class TestPost(TestCase):
 
     def test_post_creation_with_html_tags_in_content(self):
         # Given
-        post_id = "1"
+        post_id = 1
         title = "title"
         content = "<br/>"
         member_id = 1

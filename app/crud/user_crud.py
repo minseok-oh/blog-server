@@ -1,9 +1,13 @@
-import bcrypt
 from sqlalchemy.orm import Session
 
 from app.domains.user import User
 from app.mapper import convert_to_user
 from app.models.user_entity import UserEntity
+
+
+def get_user_by_student_number(db: Session, student_number: str) -> User:
+    user_entity = db.query(UserEntity).filter(UserEntity.student_number == student_number).first()
+    return convert_to_user(user_entity) if user_entity else None
 
 
 def create_user(db: Session, user: User):

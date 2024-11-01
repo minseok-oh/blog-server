@@ -8,14 +8,14 @@ class TestPost(TestCase):
 
     def test_valid_comment_creation(self):
         # Given
-        id = "1"
-        user_id = "2020000000"
+        id = 1
+        user_id = 1
         content = "content"
-        parent_id = "0"
+        parent_id = 0
         comment_date = datetime.now()
 
         # When
-        comment = CommentCreateDTO(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
+        comment = Comment(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
 
         # Then
         self.assertEqual(comment.id, id)
@@ -27,25 +27,25 @@ class TestPost(TestCase):
     def test_invalid_comment_creation(self):
         # Given
         test_cases = [
-            ("1", "2020000000", "", "0", datetime.now()),
-            ("1", "2020000000", None, "0", datetime.now())
+            (1, 1, "", 0, datetime.now()),
+            (1, 1, None, 0, datetime.now())
         ]
 
         # Expect
         for test_case in test_cases:
             with self.assertRaises(ValueError):
-                CommentCreateDTO(*test_case)
+                Comment(*test_case)
 
     def test_comment_creation_with_html_tags_in_content(self):
         # Given
-        id = "1"
-        user_id = "2020000000"
+        id = 1
+        user_id = 1
         content = "<html>"
-        parent_id = "0"
+        parent_id = 0
         comment_date = datetime.now()
 
         # When
-        comment = CommentCreateDTO(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
+        comment = Comment(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
 
         # Then
         self.assertNotIn("<", comment.content)
@@ -53,14 +53,14 @@ class TestPost(TestCase):
 
     def test_comment_repr(self):
         # Given
-        id = "1"
-        user_id = "2020000000"
+        id = 1
+        user_id = 1
         content = "content"
-        parent_id = "0"
+        parent_id = 0
         comment_date = datetime.now()
 
         # When
-        comment = CommentCreateDTO(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
+        comment = Comment(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
 
         # Then
         self.assertEqual(repr(comment),
@@ -69,12 +69,12 @@ class TestPost(TestCase):
 
     def test_update_comment_date(self):
         # Given
-        id = "1"
-        user_id = "2020000000"
+        id = 1
+        user_id = 1
         content = "content"
-        parent_id = "0"
+        parent_id = 0
         comment_date = datetime.now()
-        comment = CommentCreateDTO(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
+        comment = Comment(id=id, user_id=user_id, content=content, parent_id=parent_id, comment_date=comment_date)
 
         # When
         new_comment = comment.update_comment_date()

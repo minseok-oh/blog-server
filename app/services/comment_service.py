@@ -1,7 +1,7 @@
-from app.schemas.comment_create_dto import CommentCreateDTO
+from app.domains.comment import Comment
 
 
-def update_comment(comment: CommentCreateDTO) -> CommentCreateDTO:
+def update_comment(comment: Comment) -> Comment:
     """
     댓글을 수정합니다.
     TODO: Controller에서 호출 시에는 comment_id를 인자로 받아서 해당 댓글을 조회한 후에 댓글을 수정합니다.
