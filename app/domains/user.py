@@ -26,7 +26,8 @@ class User:
         self._validate_name(name=name)
         self._validate_member_id(member_id=member_id)
         self._validate_password(password=password)
-        self._validate_student_number(student_number=student_number)
+        # TODO: 추후 삭제될 학번 로직입니다
+        # self._validate_student_number(student_number=student_number)
         self._validate_email(email=email)
         
         self.__id = id

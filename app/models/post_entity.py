@@ -10,7 +10,7 @@ class PostEntity(Base):
     title = Column(String(50), nullable=False)
     content = Column(String(1000), nullable=False)
     member_id = Column(Integer, ForeignKey('Member.id'), nullable=False)
-    board_id = Column(Integer, ForeignKey('Board.id'), nullable=False)
+    board_id = Column(Integer, nullable=False)
     created_at = Column(DateTime)
 
     def __repr__(self):

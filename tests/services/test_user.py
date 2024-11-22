@@ -1,16 +1,17 @@
 import datetime
 from unittest import TestCase
+from unittest.mock import MagicMock
 
 import bcrypt
 
 from app.domains.user import User
-from app.services.user_service import encrypt_password
+from app.services.user_service import encrypt_password, create_user
 
 
 class TestUserService(TestCase):
 
     def test_encrypt_password(self):
-        #Given
+        # Given
         id = "test"
         name = "test"
         member_id = "test"
@@ -32,8 +33,8 @@ class TestUserService(TestCase):
         ]
 
         # When
-        user = User(id=id,name=name,member_id=member_id,password=password,role=role,avatar=avatar,
-                    phone_number=phone_number, student_number=student_number,birth=birth,email=email)
+        user = User(id=id, name=name, member_id=member_id, password=password, role=role, avatar=avatar,
+                    phone_number=phone_number, student_number=student_number, birth=birth, email=email)
 
         encrypted_password = encrypt_password(user).password
 

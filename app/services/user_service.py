@@ -1,9 +1,33 @@
+from datetime import datetime
+
 import bcrypt
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
+from app.crud import user_crud
 from app.crud.user_crud import get_user_by_student_number, delete_user_by_id
 from app.domains.user import User
+
+
+def create_user(db: Session, userId: str, password: str, email: str, username: str, birth: datetime,
+                phone: str) -> None:
+    """
+    사용자를 생성하는 함수.
+    """
+    user = User(
+        id=userId,
+        name=username,
+        member_id=userId,
+        password=password,
+        role="user",
+        avatar="",
+        phone_number=phone,
+        student_number=userId,
+        birth=birth,
+        email=email
+    )
+    encrypted_user = encrypt_password(user=user)
+    user_crud.create_user(db, encrypted_user)
 
 
 def validate_duplicate_user(db: Session, student_number: str) -> None:
