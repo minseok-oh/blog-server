@@ -9,7 +9,7 @@ class CommentEntity(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('Member.id'), nullable=False)
     content = Column(String(1000), nullable=False)
-    post_id = Column(Integer, ForeignKey('Post.id'), nullable=False)
+    post_id = Column(Integer, ForeignKey('Post.id', ondelete="CASCADE"), nullable=False)
     parent_id = Column(Integer, ForeignKey('Comment.id'))
     created_at = Column(DateTime)
 
