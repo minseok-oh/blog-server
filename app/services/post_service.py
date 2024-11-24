@@ -18,3 +18,14 @@ def create_post(user_id: int, title: str, content: str, board_id: str, db: Sessi
     """
     post = Post(id=None, title=title, content=content, member_id=user_id, board_id=board_id, created_at=datetime.now())
     post_crud.create_post(db=db, post=post)
+
+
+def update_post(user_id: int, post_id: int, title: str, content: str, db: Session) -> None:
+    """
+    게시글을 수정합니다.
+    """
+    post = post_crud.get_post_by_id(db=db, post_id=post_id)
+    if post and post.member_id == user_id:
+        post_crud.update_post(db=db, title=title, content=content, post_id=post_id)
+    else:
+        raise ValueError("게시글을 수정할 수 없습니다.")
