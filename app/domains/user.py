@@ -111,7 +111,7 @@ class User:
         """
         if password is None:
             raise ValueError(f"현재 비밀번호: None")
-        if not (User.PASSWORD_MIN_LENGTH < len(password) < User.PASSWORD_MAX_LENGTH):
+        if not password.startswith("$") and not (User.PASSWORD_MIN_LENGTH < len(password) < User.PASSWORD_MAX_LENGTH):
             raise ValueError(f"현재 비밀번호 길이: {len(password)}")
 
         count = 0
