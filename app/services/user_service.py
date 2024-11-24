@@ -19,7 +19,7 @@ def create_user(db: Session, userId: str, password: str, email: str, username: s
         name=username,
         member_id=userId,
         password=password,
-        role="user",
+        role="guest",
         avatar="",
         phone_number=phone,
         student_number=userId,

@@ -1,13 +1,10 @@
-from http.client import HTTPException
 from typing import Optional
 
-from requests import Request
+from fastapi import Request, HTTPException
 
 from app.util.session_store import SessionStore
-from main import app
 
 
-@app.middleware('http')
 async def auth_middleware(request: Request, call_next):
     exempt_paths = ["/api/auth/sign-up", "/api/auth/sign-in"]
     if request.url.path in exempt_paths:
@@ -29,4 +26,4 @@ def verify_session(session_id: str) -> Optional[dict]:
     session = SessionStore.get(session_id)
     if not session:
         return None
-    return {"userId": session.userId, "role": session.role}
+    return {"user_id": session.user_id, "username": session.username, "role": session.role}
