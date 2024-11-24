@@ -1,9 +1,12 @@
 from datetime import datetime
 
+from sqlalchemy.orm import Session
+
+from app.crud import post_crud
 from app.domains.post import Post
 
 
-def create_post(title: str, content: str, member_id: int, board_id: int) -> Post:
+def create_post(user_id: int, title: str, content: str, board_id: str, db: Session) -> Post:
     """
     게시글을 작성합니다.
 
@@ -13,6 +16,5 @@ def create_post(title: str, content: str, member_id: int, board_id: int) -> Post
     @:param board_id 게시판의 식별자
     @:return created_post 저장된 게시글
     """
-    post = Post(id=None, title=title, content=content, member_id=member_id, board_id=board_id, created_at=datetime.now())
-    # created_post = 게시글 저장
-    # return created_post
+    post = Post(id=None, title=title, content=content, member_id=user_id, board_id=board_id, created_at=datetime.now())
+    post_crud.create_post(db=db, post=post)

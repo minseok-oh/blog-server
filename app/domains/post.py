@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class Post:
-    def __init__(self, id: int | None, title: str, content: str, member_id: int, board_id: int,
+    def __init__(self, id: int | None, title: str, content: str, member_id: int, board_id: str,
                  created_at: datetime):
         self._validate_title(title=title)
         self._validate_content(content=content)

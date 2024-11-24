@@ -3,9 +3,9 @@ from uuid import uuid4
 from fastapi import APIRouter, Depends, Request, Response
 from sqlalchemy.orm import Session
 
-from app.schemas.sign_in_dto import SignInDTO
-from app.schemas.user_create_dto import UserCreateDTO
-from app.schemas.user_info_dto import UserInfoDTO
+from app.schemas.auth.sign_in_dto import SignInDTO
+from app.schemas.user.user_create_dto import UserCreateDTO
+from app.schemas.user.user_info_dto import UserInfoDTO
 from app.services import auth_service
 from app.services.user_service import create_user
 from app.util.session_store import SessionStore

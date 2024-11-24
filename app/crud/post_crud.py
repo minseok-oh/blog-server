@@ -5,6 +5,17 @@ from app.mapper import convert_to_post
 from app.models.post_entity import PostEntity
 
 
+def create_post(db: Session, post: Post) -> Post:
+    post_entity = PostEntity(
+        title=post.title,
+        content=post.content,
+        member_id=post.member_id,
+        board_id=post.board_id,
+        created_at=post.created_at,
+    )
+    db.add(post_entity)
+    db.commit()
+
 def get_posts_by_board_id(db: Session, board_id: int, page: int = 1) -> list[Post]:
     # TODO: 추후 User, Board이 완료되면 테스트 코드 작성
     offset = (page - 1) * 10

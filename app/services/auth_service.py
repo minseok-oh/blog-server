@@ -3,7 +3,7 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from app.crud import user_crud
-from app.schemas.sign_in_info_dto import SignInInfoDTO
+from app.schemas.auth.sign_in_info_dto import SignInInfoDTO
 
 
 def sign_in(user_id: str, password: str, db: Session) -> SignInInfoDTO:
