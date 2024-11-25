@@ -41,3 +41,9 @@ def update_comment(db: Session, comment: Comment):
     comment_entity.content = comment.content
     comment_entity.created_at = comment.created_at
     db.commit()
+
+
+def delete_comment(db: Session, comment_id: int):
+    comment_entity = db.query(CommentEntity).get(comment_id)
+    db.delete(comment_entity)
+    db.commit()

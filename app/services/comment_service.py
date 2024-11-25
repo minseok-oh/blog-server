@@ -32,3 +32,13 @@ def update_comment(user_id: int, comment_id: int, content: str, db: Session) -> 
         created_at=datetime.now(),
     )
     comment_crud.update_comment(db=db, comment=saved_comment)
+
+
+def delete_comment(user_id: int, comment_id: int, db: Session) -> None:
+    """
+    댓글을 삭제합니다.
+    """
+    comment = comment_crud.get_comments_by_id(comment_id=comment_id, db=db)
+    if comment.user_id != user_id:
+        raise ValueError("삭제 권한이 없습니다.")
+    comment_crud.delete_comment(db=db, comment_id=comment_id)
