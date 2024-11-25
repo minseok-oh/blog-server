@@ -37,6 +37,7 @@ def convert_to_comment(comment_entity: CommentEntity) -> Comment:
         comment_entity.id,
         comment_entity.user_id,
         comment_entity.content,
+        comment_entity.post_id,
         comment_entity.parent_id,
         comment_entity.created_at,
     )

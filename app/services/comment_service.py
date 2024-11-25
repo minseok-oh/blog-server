@@ -16,10 +16,19 @@ def create_comment(user_id: int, post_id: int, content: str, db: Session) -> Non
     comment_crud.create_comment(db=db, comment=comment)
 
 
-def update_comment(comment: Comment) -> Comment:
+def update_comment(user_id: int, comment_id: int, content: str, db: Session) -> Comment:
     """
     댓글을 수정합니다.
-    TODO: Controller에서 호출 시에는 comment_id를 인자로 받아서 해당 댓글을 조회한 후에 댓글을 수정합니다.
-    TODO: 추후에 content를 인자로 받아서 댓글을 수정할 수 있도록 수정합니다.
     """
-    return comment.update_comment_date()
+    comment = comment_crud.get_comments_by_id(comment_id=comment_id, db=db)
+    if comment.user_id != user_id:
+        raise ValueError("수정 권한이 없습니다.")
+    saved_comment = Comment(
+        id=comment.id,
+        user_id=comment.user_id,
+        content=content,
+        post_id=comment.post_id,
+        parent_id=comment.parent_id,
+        created_at=datetime.now(),
+    )
+    comment_crud.update_comment(db=db, comment=saved_comment)

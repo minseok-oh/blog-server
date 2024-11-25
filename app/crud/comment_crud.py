@@ -29,3 +29,15 @@ def get_comments_by_post_id(db: Session, post_id: int, page: int = 1) -> list[Co
         .all()
     )
     return [convert_to_comment(comment_entity) for comment_entity in comment_entities]
+
+
+def get_comments_by_id(comment_id: int, db: Session) -> Comment:
+    comment_entity = db.query(CommentEntity).get(comment_id)
+    return convert_to_comment(comment_entity)
+
+
+def update_comment(db: Session, comment: Comment):
+    comment_entity = db.query(CommentEntity).get(comment.id)
+    comment_entity.content = comment.content
+    comment_entity.created_at = comment.created_at
+    db.commit()
