@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.domains.comment import Comment
 from app.mapper import convert_to_comment
 from app.models.comment_entity import CommentEntity
+from app.models.user_entity import UserEntity
 
 
 def create_comment(db: Session, comment: Comment):
@@ -17,17 +18,27 @@ def create_comment(db: Session, comment: Comment):
     db.commit()
 
 
-def get_comments_by_post_id(db: Session, post_id: int, page: int = 1) -> list[Comment]:
-    # TODO: 추후 User, Board, Post이 완료되면 테스트 코드 작성
-    offset = (page - 1) * 10
-    comment_entities = (
-        db.query(CommentEntity)
+def get_comments_by_post_id(db: Session, post_id: int) -> list[Comment]:
+    saved_comment_entities = (
+        db.query(CommentEntity, UserEntity.name.label("member_name"))
+        .join(UserEntity, CommentEntity.user_id == UserEntity.id)
         .filter(CommentEntity.post_id == post_id)
         .order_by(CommentEntity.created_at.asc())
-        .offset(offset)
-        .limit(10)
         .all()
     )
+
+    comment_entities = []
+    for comment_entity, member_name in saved_comment_entities:  # 튜플 언패킹
+        comment_entities.append(
+            Comment(
+                id=comment_entity.id,
+                user_id=member_name,
+                post_id=comment_entity.post_id,
+                content=comment_entity.content,
+                parent_id=comment_entity.parent_id,
+                created_at=comment_entity.created_at,
+            )
+        )
     return [convert_to_comment(comment_entity) for comment_entity in comment_entities]
 
 

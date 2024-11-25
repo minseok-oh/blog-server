@@ -42,3 +42,10 @@ def delete_comment(user_id: int, comment_id: int, db: Session) -> None:
     if comment.user_id != user_id:
         raise ValueError("삭제 권한이 없습니다.")
     comment_crud.delete_comment(db=db, comment_id=comment_id)
+
+
+def get_comments_by_post_id(post_id: int, db: Session) -> list:
+    """
+    게시글의 댓글 목록을 조회합니다.
+    """
+    return comment_crud.get_comments_by_post_id(db=db, post_id=post_id)
