@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from app.domains.post import Post
 from app.mapper import convert_to_post
 from app.models.post_entity import PostEntity
+from app.models.user_entity import UserEntity
 
 
 def create_post(db: Session, post: Post) -> Post:
@@ -14,6 +15,7 @@ def create_post(db: Session, post: Post) -> Post:
         member_id=post.member_id,
         board_id=post.board_id,
         created_at=post.created_at,
+        hits=post.hits,
     )
     db.add(post_entity)
     db.commit()
@@ -24,17 +26,25 @@ def get_post_by_id(db: Session, post_id: int) -> Post:
     return convert_to_post(post_entity)
 
 
-def get_posts_by_board_id(db: Session, board_id: int, page: int = 1) -> list[Post]:
-    # TODO: 추후 User, Board이 완료되면 테스트 코드 작성
+def get_posts_by_board_id(db: Session, board_id: str, page: int = 1) -> list[Post]:
     offset = (page - 1) * 10
-    post_entities = (
-        db.query(PostEntity)
+
+    saved_post_entities = (
+        db.query(PostEntity, UserEntity.name.label("member_id"))
+        .join(UserEntity, PostEntity.member_id == UserEntity.id)
         .filter(PostEntity.board_id == board_id)
         .order_by(PostEntity.created_at.desc())
         .offset(offset)
         .limit(10)
         .all()
     )
+
+    post_entities = []
+    for post_entity, member_name in saved_post_entities:
+        post_entities.append(
+            Post(post_entity.id, post_entity.title, post_entity.content, member_name, post_entity.board_id,
+                 post_entity.created_at, post_entity.hits))
+
     return [convert_to_post(post_entity) for post_entity in post_entities]
 
 

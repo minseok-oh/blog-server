@@ -5,7 +5,7 @@ from datetime import datetime
 
 class Post:
     def __init__(self, id: int | None, title: str, content: str, member_id: int, board_id: str,
-                 created_at: datetime):
+                 created_at: datetime, hits: int):
         self._validate_title(title=title)
         self._validate_content(content=content)
 
@@ -15,6 +15,7 @@ class Post:
         self.__member_id = member_id
         self.__board_id = board_id
         self.__created_at = created_at
+        self.__hits = hits
 
     @property
     def id(self):
@@ -39,6 +40,10 @@ class Post:
     @property
     def created_at(self):
         return self.__created_at
+
+    @property
+    def hits(self):
+        return self.__hits
 
     def __repr__(self):
         return (f"Post(id={self.__id!r}, title={self.__title!r}, content={self.__content!r},"

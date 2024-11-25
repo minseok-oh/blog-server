@@ -29,6 +29,7 @@ def convert_to_post(post_entity: PostEntity) -> Post:
         post_entity.member_id,
         post_entity.board_id,
         post_entity.created_at,
+        post_entity.hits
     )
 
 

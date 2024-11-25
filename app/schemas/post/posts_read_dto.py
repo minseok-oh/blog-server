@@ -1,8 +1,11 @@
-from app.domains.post import Post
+from datetime import datetime
+
+from pydantic import BaseModel
 
 
-class PostsReadDTO:
-    def __init__(self, post_entity: Post):
-        self.__id = post_entity.id
-        self.__title = post_entity.title
-        self.__created_at = post_entity.created_at
+class PostsReadDTO(BaseModel):
+    post_id: int
+    title: str
+    author: str
+    date: datetime
+    hits: int

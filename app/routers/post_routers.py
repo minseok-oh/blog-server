@@ -3,10 +3,19 @@ from sqlalchemy.orm import Session
 
 from app.schemas.post.post_create_dto import PostCreateDTO
 from app.schemas.post.post_update_dto import PostUpdateDTO
+from app.schemas.post.posts_read_dto import PostsReadDTO
 from app.services import post_service
 from databases import get_db
 
 router = APIRouter(prefix='/api/posts')
+
+
+@router.get('/')
+def get_posts(boardId: str, page: int = 1, db: Session = Depends(get_db)) -> list:
+    posts = post_service.get_posts_by_board_id(board_id=boardId, page=page, db=db)
+    print(posts)
+    return [PostsReadDTO(post_id=post.id, title=post.title, author=post.member_id, date=post.created_at, hits=post.hits)
+            for post in posts]
 
 
 @router.post('/')

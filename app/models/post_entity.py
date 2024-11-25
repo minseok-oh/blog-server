@@ -12,9 +12,11 @@ class PostEntity(Base):
     member_id = Column(Integer, ForeignKey('Member.id'), nullable=False)
     board_id = Column(String(50), nullable=False)
     created_at = Column(DateTime)
+    hits = Column(Integer)
 
     def __repr__(self):
         """
         Post entity 필드값들을 리턴합니다.
         """
-        return f"<User(id={self.id}, title='{self.title}', attribute='{self.attribute}', content='{self.content}', user_id='{self.user_id}', board='{self.board}', created_at='{self.created_at}')>"
+        return (f"PostEntity(id={self.id!r}, title={self.title!r}, content={self.content!r},"
+                f" member_id={self.member_id!r}, board_id={self.board_id!r}, created_at={self.created_at!r})")
