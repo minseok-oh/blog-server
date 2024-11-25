@@ -22,8 +22,28 @@ def create_post(db: Session, post: Post) -> Post:
 
 
 def get_post_by_id(db: Session, post_id: int) -> Post:
-    post_entity = db.query(PostEntity).filter(PostEntity.id == post_id).first()
-    return convert_to_post(post_entity)
+    post_entity = (
+        db.query(PostEntity, UserEntity.name.label("member_name"))
+        .join(UserEntity, PostEntity.member_id == UserEntity.id)
+        .filter(PostEntity.id == post_id)
+        .first()
+    )
+
+    if not post_entity:
+        return None
+
+    post, member_name = post_entity
+    return convert_to_post(
+        Post(
+            post.id,
+            post.title,
+            post.content,
+            member_name,
+            post.board_id,
+            post.created_at,
+            post.hits
+        )
+    )
 
 
 def get_posts_by_board_id(db: Session, board_id: str, page: int = 1) -> list[Post]:
@@ -59,4 +79,10 @@ def update_post(db: Session, title: str, content: str, post_id: int) -> None:
 def delete_post(db: Session, post_id: int) -> None:
     post_entity = db.query(PostEntity).filter(PostEntity.id == post_id).first()
     db.delete(post_entity)
+    db.commit()
+
+
+def update_post_hits(db: Session, post_id: int) -> None:
+    post_entity = db.query(PostEntity).filter(PostEntity.id == post_id).first()
+    post_entity.hits += 1
     db.commit()

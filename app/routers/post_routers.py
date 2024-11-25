@@ -2,6 +2,7 @@ from fastapi import APIRouter, Request, Depends
 from sqlalchemy.orm import Session
 
 from app.schemas.post.post_create_dto import PostCreateDTO
+from app.schemas.post.post_read_dto import PostReadDTO
 from app.schemas.post.post_update_dto import PostUpdateDTO
 from app.schemas.post.posts_read_dto import PostsReadDTO
 from app.services import post_service
@@ -16,6 +17,13 @@ def get_posts(boardId: str, page: int = 1, db: Session = Depends(get_db)) -> lis
     print(posts)
     return [PostsReadDTO(post_id=post.id, title=post.title, author=post.member_id, date=post.created_at, hits=post.hits)
             for post in posts]
+
+
+@router.get('/{postId}')
+def get_post(postId: int, db: Session = Depends(get_db)):
+    post = post_service.get_post_by_id(post_id=postId, db=db)
+    return PostReadDTO(title=post.title, content=post.content, author=post.member_id, date=post.created_at,
+                       hits=post.hits)
 
 
 @router.post('/')
