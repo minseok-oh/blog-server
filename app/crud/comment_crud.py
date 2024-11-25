@@ -5,6 +5,18 @@ from app.mapper import convert_to_comment
 from app.models.comment_entity import CommentEntity
 
 
+def create_comment(db: Session, comment: Comment):
+    comment_entity = CommentEntity(
+        user_id=comment.user_id,
+        post_id=comment.post_id,
+        content=comment.content,
+        parent_id=comment.parent_id,
+        created_at=comment.created_at,
+    )
+    db.add(comment_entity)
+    db.commit()
+
+
 def get_comments_by_post_id(db: Session, post_id: int, page: int = 1) -> list[Comment]:
     # TODO: 추후 User, Board, Post이 완료되면 테스트 코드 작성
     offset = (page - 1) * 10

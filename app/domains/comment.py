@@ -5,14 +5,15 @@ import re
 class Comment:
     content_regex_has_letter = re.compile('.*[a-zA-Z가-힣]+.*')
 
-    def __init__(self, id: int, user_id: int, content: str, parent_id: int, comment_date: datetime):
+    def __init__(self, id: int, user_id: int, content: str, post_id: int, parent_id: int, created_at: datetime):
         self._validate_content(content=content)
 
         self.__id = id
         self.__user_id = user_id
         self.__content = self._make_validate_content(content=content)
+        self.__post_id = post_id
         self.__parent_id = parent_id
-        self.__comment_date = comment_date
+        self.__created_at = created_at
 
     @property
     def id(self) -> str:
@@ -27,16 +28,20 @@ class Comment:
         return self.__content
 
     @property
+    def post_id(self) -> int:
+        return self.__post_id
+
+    @property
     def parent_id(self) -> str:
         return self.__parent_id
 
     @property
-    def comment_date(self) -> str:
-        return self.__comment_date
+    def created_at(self) -> str:
+        return self.__created_at
 
     def __repr__(self):
         return (f"Comment(id={self.__id!r}, user_id={self.__user_id!r}, content={self.__content!r},"
-                f" parent_id={self.__parent_id!r}, comment_date={self.__comment_date!r})")
+                f" parent_id={self.__parent_id!r}, comment_date={self.__created_at!r})")
 
     def _validate_content(self, content) -> None:
         """

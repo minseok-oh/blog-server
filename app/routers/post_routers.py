@@ -17,7 +17,7 @@ def create_post(request: Request, post_create_dto: PostCreateDTO, db: Session = 
                                     board_id=post_create_dto.board_id, db=db)
 
 
-@router.post('/{postId}')
+@router.put('/{postId}')
 def update_post(request: Request, postId: int, post_update_dto: PostUpdateDTO, db: Session = Depends(get_db)):
     user = request.state.user
     return post_service.update_post(user_id=user['user_id'], post_id=postId, title=post_update_dto.title,
