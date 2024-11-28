@@ -11,8 +11,8 @@ def get_user_by_student_number(db: Session, student_number: str) -> User:
 
 
 def create_user(db: Session, user: User) -> None:
-    user_entity = UserEntity(name=user.name, member_id=user.member_id, password=user.password,
-                             role=user.role, avatar=user.avatar, phone_number=user.phone_number,
+    user_entity = UserEntity(name=user.name, member_id=user.member_id, nickname=user.nickname,
+                             password=user.password, role=user.role, avatar=user.avatar, phone_number=user.phone_number,
                              student_number=user.student_number, birth=user.birth, email=user.email)
     db.add(user_entity)
     db.commit()
@@ -39,3 +39,8 @@ def delete_user_by_id(db: Session, id: int) -> None:
     if user:
         db.delete(user)
         db.commit()
+
+
+def get_user_by_nickname(db: Session, nickname: str) -> User:
+    user_entity = db.query(UserEntity).filter(UserEntity.nickname == nickname).first()
+    return convert_to_user(user_entity) if user_entity else None

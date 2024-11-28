@@ -11,6 +11,7 @@ def convert_to_user(user_entity: UserEntity) -> User:
         user_entity.id,
         user_entity.name,
         user_entity.member_id,
+        user_entity.nickname,
         user_entity.password,
         user_entity.role,
         user_entity.avatar,

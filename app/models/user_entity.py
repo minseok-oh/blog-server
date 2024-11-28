@@ -9,6 +9,7 @@ class UserEntity(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(10), nullable=False)
     member_id = Column(String(20), nullable=False)
+    nickname = Column(String(20), nullable=False)
     password = Column(String(100), nullable=False)
     role = Column(String(20))
     avatar = Column(String(100))

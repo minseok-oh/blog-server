@@ -16,7 +16,7 @@ router = APIRouter(prefix='/api/auth')
 
 @router.post('/sign-up')
 def sign_up(request: UserCreateDTO, db: Session = Depends(get_db)) -> None:
-    create_user(db, request.userId, request.password, request.email,
+    create_user(db, request.userId, request.nickname, request.password, request.email,
                 request.username, request.birth, request.phone)
 
 

@@ -23,7 +23,7 @@ def create_post(db: Session, post: Post) -> Post:
 
 def get_post_by_id(db: Session, post_id: int) -> Post:
     post_entity = (
-        db.query(PostEntity, UserEntity.name.label("member_name"))
+        db.query(PostEntity, UserEntity.nickname.label("nickname"))
         .join(UserEntity, PostEntity.member_id == UserEntity.id)
         .filter(PostEntity.id == post_id)
         .first()
@@ -50,7 +50,7 @@ def get_posts_by_board_id(db: Session, board_id: str, page: int = 1) -> list[Pos
     offset = (page - 1) * 10
 
     saved_post_entities = (
-        db.query(PostEntity, UserEntity.name.label("member_id"))
+        db.query(PostEntity, UserEntity.nickname.label("nickname"))
         .join(UserEntity, PostEntity.member_id == UserEntity.id)
         .filter(PostEntity.board_id == board_id)
         .order_by(PostEntity.created_at.desc())
