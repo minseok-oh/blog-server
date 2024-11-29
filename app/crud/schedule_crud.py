@@ -44,3 +44,8 @@ def get_schedule_by_id(db: Session, schedule_id: int) -> Schedule:
             schedule.color
         )
     )
+
+
+def delete_schedule(db: Session, schedule_id: int) -> None:
+    db.query(ScheduleEntity).filter(ScheduleEntity.id == schedule_id).delete()
+    db.commit()

@@ -30,3 +30,9 @@ def get_schedule(scheduleId: int, db: Session = Depends(get_db)):
     schedule = schedule_service.get_schedule_by_id(schedule_id=scheduleId, db=db)
     return ScheduleReadDTO(title=schedule.title, content=schedule.content,
                            started_at=schedule.started_at, ended_at=schedule.ended_at)
+
+
+@router.delete('/{scheduleId}')
+def delete_schedule(request: Request, scheduleId: int, db: Session = Depends(get_db)):
+    user = request.state.user
+    schedule_service.delete_schedule(nickname=user['username'], schedule_id=scheduleId, db=db)

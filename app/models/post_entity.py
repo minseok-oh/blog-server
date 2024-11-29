@@ -9,7 +9,7 @@ class PostEntity(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(50), nullable=False)
     content = Column(String(1000), nullable=False)
-    member_id = Column(Integer, ForeignKey('Member.id'), nullable=False)
+    member_id = Column(Integer, ForeignKey('Member.id'), nullable=True)
     board_id = Column(String(50), nullable=False)
     created_at = Column(DateTime)
     hits = Column(Integer)
