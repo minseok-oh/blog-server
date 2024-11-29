@@ -26,8 +26,3 @@ services:
       MYSQL_DATABASE: blog
       MYSQL_USER: user
       MYSQL_PASSWORD: password
-    volumes:
-      - db_data:/var/lib/mysql
-
-volumes:
-  db_data:

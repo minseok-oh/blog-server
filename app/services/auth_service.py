@@ -21,4 +21,4 @@ def sign_in(user_id: str, password: str, db: Session) -> SignInInfoDTO:
             detail="비밀번호가 일치하지 않습니다."
         )
 
-    return SignInInfoDTO(user_id=user.id, username=user.name, role=user.role)
+    return SignInInfoDTO(user_id=user.id, username=user.nickname, role=user.role)

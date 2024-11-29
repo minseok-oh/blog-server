@@ -1,11 +1,14 @@
 from typing import Optional
 
-from fastapi import Request, HTTPException
+from fastapi import Request, HTTPException, Response
 
 from app.util.session_store import SessionStore
 
 
 async def auth_middleware(request: Request, call_next):
+    if request.method == "OPTIONS":
+        return Response(status_code=200)
+
     exempt_paths = ["/api/auth/sign-up", "/api/auth/sign-in"]
     if request.url.path in exempt_paths:
         return await call_next(request)
