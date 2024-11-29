@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm import Session
 
 from app.schemas.schedule.schedule_create_dto import ScheduleCreateDTO
+from app.schemas.schedule.schedule_read_dto import ScheduleReadDTO
 from app.schemas.schedule.schedules_read_dto import SchedulesReadDTO
 from app.services import schedule_service
 from databases import get_db
@@ -22,3 +23,10 @@ def get_schedules(db: Session = Depends(get_db)) -> list:
     schedules = schedule_service.get_schedules(db=db)
     return [SchedulesReadDTO(scheduleId=schedule.id, title=schedule.title, started_at=schedule.started_at,
                              ended_at=schedule.ended_at, color=schedule.color) for schedule in schedules]
+
+
+@router.get('/{scheduleId}')
+def get_schedule(scheduleId: int, db: Session = Depends(get_db)):
+    schedule = schedule_service.get_schedule_by_id(schedule_id=scheduleId, db=db)
+    return ScheduleReadDTO(title=schedule.title, content=schedule.content,
+                           started_at=schedule.started_at, ended_at=schedule.ended_at)

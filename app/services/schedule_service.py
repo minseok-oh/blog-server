@@ -21,3 +21,7 @@ def create_schedule(db: Session, title: str, content: str, started_at: datetime,
 
 def get_schedules(db: Session) -> list:
     return schedule_crud.get_schedules(db=db)
+
+
+def get_schedule_by_id(schedule_id: int, db: Session) -> Schedule:
+    return schedule_crud.get_schedule_by_id(db=db, schedule_id=schedule_id)
