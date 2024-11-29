@@ -17,3 +17,7 @@ def create_schedule(db: Session, title: str, content: str, started_at: datetime,
         color=color
     )
     schedule_crud.create_schedule(db=db, schedule=schedule)
+
+
+def get_schedules(db: Session) -> list:
+    return schedule_crud.get_schedules(db=db)

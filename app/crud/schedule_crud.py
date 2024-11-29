@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 
 from app.domains.schedule import Schedule
+from app.mapper import convert_to_schedule
 from app.models.schedule_entity import ScheduleEntity
 
 
@@ -15,3 +16,8 @@ def create_schedule(db: Session, schedule: Schedule) -> None:
     )
     db.add(schedule_entity)
     db.commit()
+
+
+def get_schedules(db: Session) -> list:
+    schedule_entities = db.query(ScheduleEntity).all()
+    return [convert_to_schedule(schedule_entity) for schedule_entity in schedule_entities]

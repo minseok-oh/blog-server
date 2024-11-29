@@ -3,17 +3,23 @@ from datetime import datetime
 
 class Schedule:
 
-    def __init__(self, title: str, content: str, member_id: int, started_at: datetime, ended_at: datetime, color: str):
+    def __init__(self, id: int, title: str, content: str, member_id: int, started_at: datetime, ended_at: datetime,
+                 color: str):
         self._validate_title(title=title)
         self._validate_content(content=content)
         self._validate_time(started_at=started_at, ended_at=ended_at)
 
+        self.__id = id
         self.__title = self._make_valid_title(title=title)
         self.__content = self._make_valid_content(content=content)
         self.__member_id = member_id
         self.__started_at = started_at
         self.__ended_at = ended_at
         self.__color = color
+
+    @property
+    def id(self):
+        return self.__id
 
     @property
     def title(self):
